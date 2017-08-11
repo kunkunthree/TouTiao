@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiepuxin.toutiao.dao.MessageDAO">
+    <sql id="table">message</sql>
+    <sql id="selectFields">id, fromid, toid, content, conversation_id, created_date</sql>
+    <select id="selectByConversationIdAndOffset" resultType="com.xiepuxin.toutiao.model.Message">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        <if test="id != 0">
+            WHERE id = #{id}
+        </if>
+        ORDER BY id DESC
+        LIMIT #{offset},#{limit}
+    </select>
+</mapper>
